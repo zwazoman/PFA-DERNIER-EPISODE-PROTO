@@ -1,6 +1,3 @@
-
-using AYellowpaper.SerializedCollections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCoreData", menuName = "Weapons/CoreData")]

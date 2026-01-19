@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerHealth : PlayerScript, IDamageable
 {
     public void Damage()

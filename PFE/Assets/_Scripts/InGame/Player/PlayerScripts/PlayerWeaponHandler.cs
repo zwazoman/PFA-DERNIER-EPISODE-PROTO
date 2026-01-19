@@ -1,12 +1,8 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections.Generic;
-using System.Net.Sockets;
 using Unity.Netcode;
 using Unity.Netcode.Components;
-using Unity.Netcode.Editor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerWeaponHandler : PlayerScript

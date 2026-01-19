@@ -37,6 +37,8 @@ public class PlayerMain : NetworkBehaviour
             playerWeaponHandler.main = this;
             playerInteraction.main = this;
             uiMain.main = this;
+
+            GameObject.Find("Start Camera").SetActive(false);
         }
         else
         {

@@ -1,6 +1,3 @@
-using UnityEngine;
-
-
 public class CorePickup : Pickup<Core>
 {
     protected override void Awake()
