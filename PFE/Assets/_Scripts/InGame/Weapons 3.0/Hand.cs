@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class Hands : MonoBehaviour
+public class Hand : MonoBehaviour
 {
+
+    [SerializeField] Transform _holdingSocket;
+
     Item _heldItem;
 
     void UseItem()

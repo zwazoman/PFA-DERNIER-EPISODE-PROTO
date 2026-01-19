@@ -17,14 +17,15 @@ public class PlayerMain : NetworkBehaviour
     [field : SerializeField]
     public PlayerHealth playerHealth { get; private set; }
 
-    [field : SerializeField]
-    public PlayerWeaponHandler playerWeaponHandler { get; private set; }
-
     [field: SerializeField]
     public PlayerInteraction playerInteraction { get; private set; }
 
+    [field: SerializeField]
+    public Hand leftHand { get; private set; }
+
     [field : SerializeField]
-    public PlayerUiMain uiMain { get; private set; }
+    public Hand rightHand { get; private set; }
+
 
     public override void OnNetworkSpawn()
     {
@@ -34,9 +35,7 @@ public class PlayerMain : NetworkBehaviour
         {
             playerMovement.main = this;
             playerHealth.main = this;
-            playerWeaponHandler.main = this;
             playerInteraction.main = this;
-            uiMain.main = this;
 
             GameObject.Find("Start Camera").SetActive(false);
         }
@@ -50,9 +49,9 @@ public class PlayerMain : NetworkBehaviour
 
             playerMovement.enabled = false;
             playerHealth.enabled = false;
-            playerWeaponHandler.enabled = false;
             playerInteraction.enabled = false;
-            uiMain.enabled = false;
+            leftHand.enabled = false;
+            rightHand.enabled = false;
         }
     }
 

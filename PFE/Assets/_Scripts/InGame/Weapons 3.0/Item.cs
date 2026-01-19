@@ -1,7 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : Interactable
 {
     public virtual void Use() { }
     public virtual void Break() { }
