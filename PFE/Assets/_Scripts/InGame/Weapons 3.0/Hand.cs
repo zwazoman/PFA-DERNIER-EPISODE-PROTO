@@ -1,25 +1,45 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-
     [SerializeField] Transform _holdingSocket;
 
-    Item _heldItem;
+    [SerializeField] float _grabSpeed = .5f;
 
-    void UseItem()
+    [HideInInspector] public Item heldItem;
+
+    public async void EquipItem(Item item)
     {
-        if (_heldItem == null)
-            return;
+        heldItem = item;
 
-        _heldItem.Use();
+        item.transform.parent = _holdingSocket;
+
+        await item.transform.DOMove(_holdingSocket.position, _grabSpeed);
+        await item.transform.DORotate(_holdingSocket.rotation.eulerAngles, _grabSpeed);
+
+        item.OnPickup();
     }
 
-    void DropItem()
+    public void UseItem()
     {
-        if (_heldItem == null)
+        if (heldItem == null)
             return;
 
-        _heldItem.OnDrop();
+        heldItem.Use();
+    }
+
+    public void DropItem()
+    {
+        if (heldItem == null)
+            return;
+
+        heldItem.transform.parent = null;
+        //reset physique
+
+        heldItem = null;
+
+        heldItem.OnDrop();
     }
 }

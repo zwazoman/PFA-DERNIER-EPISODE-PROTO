@@ -21,10 +21,7 @@ public class PlayerMain : NetworkBehaviour
     public PlayerInteraction playerInteraction { get; private set; }
 
     [field: SerializeField]
-    public Hand leftHand { get; private set; }
-
-    [field : SerializeField]
-    public Hand rightHand { get; private set; }
+    public PlayerHands playerHands { get; private set; }
 
 
     public override void OnNetworkSpawn()
@@ -36,6 +33,7 @@ public class PlayerMain : NetworkBehaviour
             playerMovement.main = this;
             playerHealth.main = this;
             playerInteraction.main = this;
+            playerHands.main = this;
 
             GameObject.Find("Start Camera").SetActive(false);
         }
@@ -50,8 +48,7 @@ public class PlayerMain : NetworkBehaviour
             playerMovement.enabled = false;
             playerHealth.enabled = false;
             playerInteraction.enabled = false;
-            leftHand.enabled = false;
-            rightHand.enabled = false;
+            playerHands.enabled = false;
         }
     }
 

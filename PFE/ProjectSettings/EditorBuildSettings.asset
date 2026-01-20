@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/WeaponTestScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/_Scenes/Weapon 2.0 Test.unity
+    guid: a302c2802b0d5e84abae0450abb97ef0
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a7fa55b4b529fb548af3b3607e7eff13, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
