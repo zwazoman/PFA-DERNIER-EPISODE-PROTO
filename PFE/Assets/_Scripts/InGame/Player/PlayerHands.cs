@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerHands : PlayerScript
 {
@@ -12,4 +13,30 @@ public class PlayerHands : PlayerScript
         else 
             rightHand.EquipItem(item);
     }
+
+    #region Inputs
+
+    public void UseRight(InputAction.CallbackContext ctx)
+    {
+        if (rightHand.heldItem == null)
+            return;
+
+        if (ctx.started)
+            rightHand.heldItem.StartUsing();
+        if (ctx.canceled)
+            rightHand.heldItem.StopUsing();
+    }
+
+    public void UseLeft(InputAction.CallbackContext ctx)
+    {
+        if (leftHand.heldItem == null)
+            return;
+
+            if (ctx.started)
+            leftHand.heldItem.StartUsing();
+        if (ctx.canceled)
+            leftHand.heldItem.StopUsing();
+    }
+
+    #endregion
 }

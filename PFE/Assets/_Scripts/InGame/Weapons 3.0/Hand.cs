@@ -22,14 +22,6 @@ public class Hand : MonoBehaviour
         item.OnPickup();
     }
 
-    public void UseItem()
-    {
-        if (heldItem == null)
-            return;
-
-        heldItem.Use();
-    }
-
     public void DropItem()
     {
         if (heldItem == null)
