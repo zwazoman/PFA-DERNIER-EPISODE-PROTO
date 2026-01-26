@@ -29,6 +29,8 @@ public class ChatManager : PlayerScript
     {
         base.OnNetworkSpawn();
 
+        print("appelle");
+
         if (IsHost)
         {
             _serverBehaviour.Initialize();
