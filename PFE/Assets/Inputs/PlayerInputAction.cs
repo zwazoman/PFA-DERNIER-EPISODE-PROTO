@@ -173,18 +173,18 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Reload"",
+                    ""name"": ""Open/Close"",
                     ""type"": ""Button"",
-                    ""id"": ""00942032-2baa-4b21-8489-72faa7c221d8"",
+                    ""id"": ""769e5220-54bf-453e-9ea9-c10d172ec2c9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Open/Close"",
+                    ""name"": ""Open Chat"",
                     ""type"": ""Button"",
-                    ""id"": ""769e5220-54bf-453e-9ea9-c10d172ec2c9"",
+                    ""id"": ""d26d6fae-e580-47b0-9688-15fce6e04c5b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -524,34 +524,23 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d365d065-af74-444f-a687-b43fc0ac43ec"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""15d48070-bedc-4894-9740-45f8d68a6fac"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""3ba08b05-fe3d-4d61-93f5-d5b91a77098c"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bed28dda-fa71-49d7-bd21-38fa23634584"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Open Chat"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -583,7 +572,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1168,8 +1157,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_ShootLeft = m_Player.FindAction("ShootLeft", throwIfNotFound: true);
         m_Player_ShootRight = m_Player.FindAction("ShootRight", throwIfNotFound: true);
-        m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_OpenClose = m_Player.FindAction("Open/Close", throwIfNotFound: true);
+        m_Player_OpenChat = m_Player.FindAction("Open Chat", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1273,8 +1262,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_ShootLeft;
     private readonly InputAction m_Player_ShootRight;
-    private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_OpenClose;
+    private readonly InputAction m_Player_OpenChat;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1323,13 +1312,13 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @ShootRight => m_Wrapper.m_Player_ShootRight;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Reload".
-        /// </summary>
-        public InputAction @Reload => m_Wrapper.m_Player_Reload;
-        /// <summary>
         /// Provides access to the underlying input action "Player/OpenClose".
         /// </summary>
         public InputAction @OpenClose => m_Wrapper.m_Player_OpenClose;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/OpenChat".
+        /// </summary>
+        public InputAction @OpenChat => m_Wrapper.m_Player_OpenChat;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1383,12 +1372,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ShootRight.started += instance.OnShootRight;
             @ShootRight.performed += instance.OnShootRight;
             @ShootRight.canceled += instance.OnShootRight;
-            @Reload.started += instance.OnReload;
-            @Reload.performed += instance.OnReload;
-            @Reload.canceled += instance.OnReload;
             @OpenClose.started += instance.OnOpenClose;
             @OpenClose.performed += instance.OnOpenClose;
             @OpenClose.canceled += instance.OnOpenClose;
+            @OpenChat.started += instance.OnOpenChat;
+            @OpenChat.performed += instance.OnOpenChat;
+            @OpenChat.canceled += instance.OnOpenChat;
         }
 
         /// <summary>
@@ -1427,12 +1416,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @ShootRight.started -= instance.OnShootRight;
             @ShootRight.performed -= instance.OnShootRight;
             @ShootRight.canceled -= instance.OnShootRight;
-            @Reload.started -= instance.OnReload;
-            @Reload.performed -= instance.OnReload;
-            @Reload.canceled -= instance.OnReload;
             @OpenClose.started -= instance.OnOpenClose;
             @OpenClose.performed -= instance.OnOpenClose;
             @OpenClose.canceled -= instance.OnOpenClose;
+            @OpenChat.started -= instance.OnOpenChat;
+            @OpenChat.performed -= instance.OnOpenChat;
+            @OpenChat.canceled -= instance.OnOpenChat;
         }
 
         /// <summary>
@@ -1808,19 +1797,19 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnShootRight(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnReload(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Open/Close" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenClose(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Open Chat" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenChat(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

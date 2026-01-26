@@ -87,18 +87,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Reload",
+                    "name": "Open/Close",
                     "type": "Button",
-                    "id": "00942032-2baa-4b21-8489-72faa7c221d8",
+                    "id": "769e5220-54bf-453e-9ea9-c10d172ec2c9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Open/Close",
+                    "name": "Open Chat",
                     "type": "Button",
-                    "id": "769e5220-54bf-453e-9ea9-c10d172ec2c9",
+                    "id": "d26d6fae-e580-47b0-9688-15fce6e04c5b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -438,34 +438,23 @@
                 },
                 {
                     "name": "",
-                    "id": "d365d065-af74-444f-a687-b43fc0ac43ec",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "15d48070-bedc-4894-9740-45f8d68a6fac",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "3ba08b05-fe3d-4d61-93f5-d5b91a77098c",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bed28dda-fa71-49d7-bd21-38fa23634584",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Chat",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -497,7 +486,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "15cef263-9014-4fd5-94d9-4e4a6234a6ef",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

@@ -17,6 +17,8 @@ public class ChatManager : PlayerScript
     [SerializeField] GameObject _newMessagePrefab;
     [SerializeField] string _username = "George";
 
+    [HideInInspector] public bool chatOpened = false;
+
     void Awake()
     {
         TryGetComponent(out _serverBehaviour);
@@ -45,6 +47,8 @@ public class ChatManager : PlayerScript
 
     void SendNewMessage(string message)
     {
+        print("submit input");
+
         _chatInputField.text = null;
         CreateNewMessageObj(_username, message, true);
 
