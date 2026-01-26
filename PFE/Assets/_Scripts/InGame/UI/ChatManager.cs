@@ -63,7 +63,7 @@ public class ChatManager : PlayerScript
     void CreateNewMessageObj(string senderName, string message, bool sent = true)
     {
         GameObject _messageObject = Instantiate(_newMessagePrefab, _chatContent);
-        _messageObject.TryGetComponent(out OnlineChatMessage chatMessage);
+        _messageObject.TryGetComponent(out ChatMessage chatMessage);
 
         chatMessage.SetupMessage(senderName, message, sent);
     }

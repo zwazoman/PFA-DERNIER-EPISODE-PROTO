@@ -2,7 +2,7 @@ using TMPro;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
-public class OnlineChatMessage : MonoBehaviour
+public class ChatMessage : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] public TMP_Text _nameText;
