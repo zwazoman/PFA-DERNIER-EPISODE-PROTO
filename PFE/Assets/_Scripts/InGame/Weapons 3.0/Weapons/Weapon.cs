@@ -16,6 +16,8 @@ public class ShootingWeapon : Item
 
     float _timer = 0;
 
+    //todo context dans le shoot 
+
     public override void StartUsing()
     {
         base.StartUsing();

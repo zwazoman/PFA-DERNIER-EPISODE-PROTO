@@ -39,6 +39,8 @@ public class Hand : PlayerScript
         _itemGrabbed = true;
     }
 
+    //todo : extension networkObj
+
     [Rpc(SendTo.Server)]
     void TryChangeOwnershipRpc(ulong clientID, NetworkBehaviourReference networkBhvRef)
     {
@@ -57,6 +59,8 @@ public class Hand : PlayerScript
             await UniTask.Yield();
         }
     }
+
+    //end
 
     public void DropItem()
     {
