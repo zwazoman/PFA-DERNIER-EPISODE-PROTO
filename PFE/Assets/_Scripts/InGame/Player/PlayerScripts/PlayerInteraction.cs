@@ -11,7 +11,7 @@ public class PlayerInteraction : PlayerScript
 
     [SerializeField] LayerMask _interactionmask;
 
-    public bool canInteract;
+    [HideInInspector] public bool canInteract;
 
     private void Update()
     {

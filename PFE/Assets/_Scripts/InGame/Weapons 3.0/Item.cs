@@ -26,6 +26,8 @@ public class Item : Interactable
 
     public virtual void StartUsing()
     {
+        print(gameObject.name + " : Start Using");
+
         isUsing = true;
         Use();
     }
@@ -34,6 +36,8 @@ public class Item : Interactable
 
     public virtual void StopUsing()
     {
+        print(gameObject.name + " : Stop Using");
+
         isUsing = false;
     }
 

@@ -32,10 +32,22 @@ public class PlayerHands : PlayerScript
         if (leftHand.heldItem == null)
             return;
 
-            if (ctx.started)
+        if (ctx.started)
             leftHand.heldItem.StartUsing();
         if (ctx.canceled)
             leftHand.heldItem.StopUsing();
+    }
+
+    public void DropLeft(InputAction.CallbackContext ctx)
+    {
+        if (leftHand.heldItem == null)
+            return;
+
+        if (ctx.started)
+        {
+            leftHand.DropItem();
+        }
+
     }
 
     #endregion
