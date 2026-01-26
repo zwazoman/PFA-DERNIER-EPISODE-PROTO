@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using Unity.Collections;
-using Unity.Netcode;
 using Unity.Networking.Transport;
 using UnityEngine;
 
@@ -44,20 +43,9 @@ public class ClientBehavour : MonoBehaviour
             if (cmd == Unity.Networking.Transport.NetworkEvent.Type.Connect)
             {
                 Debug.Log("We are now connected to the server.");
-
-                //uint value = 1;
-                //m_Driver.BeginSend(m_Connection, out var writer);
-                //writer.WriteUInt(value);
-                //m_Driver.EndSend(writer);
             }
             else if (cmd == Unity.Networking.Transport.NetworkEvent.Type.Data)
             {
-                //uint value = stream.ReadUInt();
-                //Debug.Log($"Got the value {value} back from the server.");
-
-                //m_Connection.Disconnect(m_Driver);
-                //m_Connection = default;
-
                 int bufferLength = stream.ReadInt();
                 NativeArray<byte> buffer = new(bufferLength, Allocator.Temp);
 
@@ -84,7 +72,6 @@ public class ClientBehavour : MonoBehaviour
         writer.WriteBytes(encodedString);
         m_Driver.EndSend(writer);
     }
-
 
     private void OnDestroy()
     {

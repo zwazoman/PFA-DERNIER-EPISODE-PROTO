@@ -1,11 +1,9 @@
 using UnityEngine;
 using Unity.Networking.Transport;
 using Unity.Collections;
-using System.Globalization;
-using UnityEditor.Experimental.GraphView;
-using Unity.Netcode;
 using System;
 using System.Text;
+using System.IO;
 
 
 public class ServerBehaviour : MonoBehaviour
@@ -67,18 +65,6 @@ public class ServerBehaviour : MonoBehaviour
             {
                 if(cmd == Unity.Networking.Transport.NetworkEvent.Type.Data)
                 {
-                    //uint number = stream.ReadUInt();
-                    //Debug.Log($"Got {number} from a client, adding 2 to it.");
-
-                    //if(number == ChoosenNumber) { }
-                    //    //réussite
-                    //else if(number > ChoosenNumber) { }
-                    //    //trop grand
-                    //else { }
-                    //    //trop petit
-                    //m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[i], out var writer);
-                    //writer.WriteUInt(number);
-                    //m_Driver.EndSend(writer);
 
                     int bufferLength = stream.ReadInt();
                     NativeArray<byte> buffer = new(bufferLength, Allocator.Temp);
@@ -106,6 +92,7 @@ public class ServerBehaviour : MonoBehaviour
         for (int i = 0; i < m_Connections.Length; i++)
         {
             m_Driver.BeginSend(NetworkPipeline.Null, m_Connections[i], out var writer);
+
             writer.WriteInt(encodedString.Length);
             writer.WriteBytes(encodedString);
             m_Driver.EndSend(writer);
