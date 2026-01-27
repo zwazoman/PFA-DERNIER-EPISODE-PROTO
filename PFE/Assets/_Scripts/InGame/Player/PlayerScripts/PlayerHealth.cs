@@ -1,4 +1,6 @@
-public class PlayerHealth : PlayerScript, IDamageable
+using UnityEngine;
+
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
     public void Damage()
     {

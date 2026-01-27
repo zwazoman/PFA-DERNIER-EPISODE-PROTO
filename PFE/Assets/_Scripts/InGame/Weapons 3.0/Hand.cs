@@ -3,10 +3,16 @@ using DG.Tweening;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Hand : PlayerScript
+public class Hand : NetworkBehaviour
 {
+    [Header("References")]
+    [SerializeField] PlayerMain _main;
     [SerializeField] Transform _holdingSocket;
 
+
+    [Header("Parameters")]
+
+    [SerializeField] int _inventorySize;
     [SerializeField] float _grabSpeed = .5f;
 
     [HideInInspector] public Item heldItem;
@@ -32,7 +38,7 @@ public class Hand : PlayerScript
 
         item.OnPickup();
 
-        item.transform.parent = main.transform;
+        item.transform.parent = _main.transform;
 
         item.transform.DOMove(_holdingSocket.position, _grabSpeed);
         await item.transform.DORotate(_holdingSocket.rotation.eulerAngles, _grabSpeed);

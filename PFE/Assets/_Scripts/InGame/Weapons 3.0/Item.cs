@@ -67,7 +67,7 @@ public class Item : Interactable
     {
         base.Interact(interaction);
 
-        interaction.main.playerHands.Equip(this);
+        interaction.EquipItem(this);
     }
 
     async void Use()

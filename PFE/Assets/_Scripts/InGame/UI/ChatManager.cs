@@ -3,9 +3,13 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChatManager : PlayerScript
+public class ChatManager : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] PlayerMain _main;
+
+    [SerializeField] public GameObject chatPanel;
+
     [SerializeField] Transform _chatContent;
     [SerializeField] TMP_InputField _chatInputField;
 
@@ -19,19 +23,21 @@ public class ChatManager : PlayerScript
 
     [HideInInspector] public bool chatOpened = false;
 
+
     void Awake()
     {
         TryGetComponent(out _serverBehaviour);
         TryGetComponent(out _clientBehavour);
+
+        print("link");
+        _main.OnNetworkSpawned += OnNetworkSpawn;
     }
 
-    public override void OnNetworkSpawn()
+    void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-
         print("appelle");
 
-        if (IsHost)
+        if (_main.IsHost)
         {
             _serverBehaviour.Initialize();
             _serverBehaviour.Username = _username;
@@ -54,7 +60,7 @@ public class ChatManager : PlayerScript
         _chatInputField.text = null;
         CreateNewMessageObj(_username, message, true);
 
-        if (IsHost)
+        if (_main.IsHost)
             _serverBehaviour.WriteNewMessage(message);
         else
             _clientBehavour.WriteNewMessage(message);

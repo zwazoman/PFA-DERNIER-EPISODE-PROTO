@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteraction : PlayerScript
+public class PlayerInteraction : MonoBehaviour
 {
+    [SerializeField] PlayerMain _main;
+
     Interactable _currentInteractable;
 
     [Header("Parameters")]
@@ -17,7 +19,7 @@ public class PlayerInteraction : PlayerScript
     {
         RaycastHit hit;
 
-        if (Physics.SphereCast(main.playerCamera.transform.position, _interactionWidth, /*main.playerCamera.transform.position + */main.playerCamera.transform.forward, out hit, _interactionRange, _interactionmask))
+        if (Physics.SphereCast(_main.playerCamera.transform.position, _interactionWidth, /*main.playerCamera.transform.position + */_main.playerCamera.transform.forward, out hit, _interactionRange, _interactionmask))
         {
             if (hit.collider.gameObject.TryGetComponent(out Interactable interactable))
             {
@@ -53,9 +55,14 @@ public class PlayerInteraction : PlayerScript
         }
     }
 
+    public void EquipItem(Item item)
+    {
+        _main.playerHands.Equip(item);
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(main.playerCamera.transform.position, main.playerCamera.transform.position + main.playerCamera.transform.forward.normalized * _interactionRange);
-        Gizmos.DrawWireSphere(main.playerCamera.transform.position + main.playerCamera.transform.forward.normalized * _interactionRange, _interactionWidth);
+        Gizmos.DrawLine(_main.playerCamera.transform.position, _main.playerCamera.transform.position + _main.playerCamera.transform.forward.normalized * _interactionRange);
+        Gizmos.DrawWireSphere(_main.playerCamera.transform.position + _main.playerCamera.transform.forward.normalized * _interactionRange, _interactionWidth);
     }
 }

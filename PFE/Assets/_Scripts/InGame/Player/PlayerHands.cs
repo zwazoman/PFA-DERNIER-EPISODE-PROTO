@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerHands : PlayerScript
+public class PlayerHands : MonoBehaviour
 {
     public Hand leftHand;
     public Hand rightHand;

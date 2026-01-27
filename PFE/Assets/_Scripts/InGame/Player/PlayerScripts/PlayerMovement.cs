@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : PlayerScript
+public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] PlayerMain _main;
+
     [Header("References")]
     [SerializeField] CharacterController _charController;
 
@@ -37,7 +39,7 @@ public class PlayerMovement : PlayerScript
             xRotation -= yLook;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-            main.playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            _main.playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
             transform.Rotate(Vector3.up * xLook);
 
         }

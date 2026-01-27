@@ -2,17 +2,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
 using UnityEngine.EventSystems;
+using System;
 public class PlayerMain : NetworkBehaviour
 {
+    public event Action OnNetworkSpawned;
+
     [Header("Objects")]
     [field : SerializeField] 
     public Camera playerCamera { get; private set; }
 
     [field : SerializeField]
     public PlayerInput playerInput { get; private set; }
-
-    [field : SerializeField]
-    public EventSystem eventSystem { get; private set; }
 
     [Header("Scripts")]
     [field : SerializeField]
@@ -34,12 +34,11 @@ public class PlayerMain : NetworkBehaviour
 
         if (IsOwner)
         {
-            playerMovement.main = this;
-            playerHealth.main = this;
-            playerInteraction.main = this;
-            playerHands.main = this;
-
             GameObject.Find("Start Camera").SetActive(false);
+
+            print("spawn");
+
+            OnNetworkSpawned?.Invoke();
         }
         else
         {
@@ -47,7 +46,6 @@ public class PlayerMain : NetworkBehaviour
 
             playerInput.enabled = false;
             playerCamera.enabled = false;
-            eventSystem.enabled = false;
             playerCamera.GetComponent<AudioListener>().enabled = false;
 
             playerMovement.enabled = false;
