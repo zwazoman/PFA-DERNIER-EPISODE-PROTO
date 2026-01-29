@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class Item : Interactable
 {
+
+    [SerializeField] public ItemType type;
+
     [SerializeField] Collider _coll;
 
     [SerializeField] Rigidbody _rb;

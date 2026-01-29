@@ -1319,6 +1319,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHand: {fileID: 6160615617313962826}
   rightHand: {fileID: 5082152678274194448}
+  hands:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &3059435177793175390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,9 +2237,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8531568215491640720}
     - target: {fileID: 2464023214136510072, guid: d58de8a150bb8b34aa5376ea8cc13497, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464023214136510072, guid: d58de8a150bb8b34aa5376ea8cc13497, type: 3}
       propertyPath: _main
       value: 
       objectReference: {fileID: 8531568215491640720}
+    - target: {fileID: 2464023214136510072, guid: d58de8a150bb8b34aa5376ea8cc13497, type: 3}
+      propertyPath: _inventorySize
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5716791234918691656, guid: d58de8a150bb8b34aa5376ea8cc13497, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.43

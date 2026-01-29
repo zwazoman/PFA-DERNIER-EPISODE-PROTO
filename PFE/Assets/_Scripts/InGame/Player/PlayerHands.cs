@@ -6,12 +6,26 @@ public class PlayerHands : MonoBehaviour
     public Hand leftHand;
     public Hand rightHand;
 
-    public void Equip(Item item, bool EquipInLeftHand = true)
+    public Hand[] hands = { null, null };
+
+    private void Awake()
     {
-        if(EquipInLeftHand)
-            leftHand.EquipItem(item);
-        else 
-            rightHand.EquipItem(item);
+        hands[0] = leftHand;
+        hands[1] = rightHand;
+    }
+
+    public void Equip(Item item)
+    {
+        bool itemEquipped = false;
+
+        foreach(Hand hand in hands)
+        {
+            if(hand.type == item.type && !itemEquipped)
+            {
+                if (hand.TryPickupItem(item))
+                    return;
+            }
+        }
     }
 
     #region Inputs
@@ -50,5 +64,16 @@ public class PlayerHands : MonoBehaviour
 
     }
 
+    public void SwitchEquip(InputAction.CallbackContext ctx)
+    {
+
+    }
+
     #endregion
+}
+
+public enum ItemType
+{
+    Weapon,
+    Consummable
 }

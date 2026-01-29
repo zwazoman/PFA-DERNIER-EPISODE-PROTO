@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class ShootingWeapon : Item
+public class Weapon : Item
 {
     [Header("References")]
     [SerializeField] Transform _shootSocket;

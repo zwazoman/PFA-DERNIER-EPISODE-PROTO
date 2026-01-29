@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponHand : Hand
+public class WeaponHand : Hand/*<Weapon>*/
 {
 
 }

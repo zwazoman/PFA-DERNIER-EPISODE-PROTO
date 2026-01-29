@@ -29,14 +29,11 @@ public class ChatManager : MonoBehaviour
         TryGetComponent(out _serverBehaviour);
         TryGetComponent(out _clientBehavour);
 
-        print("link");
         _main.OnNetworkSpawned += OnNetworkSpawn;
     }
 
     void OnNetworkSpawn()
     {
-        print("appelle");
-
         if (_main.IsHost)
         {
             _serverBehaviour.Initialize();

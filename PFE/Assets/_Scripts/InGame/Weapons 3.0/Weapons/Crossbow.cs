@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Crossbow : ShootingWeapon
+public class Crossbow : Weapon
 {
 
 }
