@@ -61,8 +61,8 @@ public class Item : Interactable
         print(gameObject.name + "Picked up !");
 
         _coll.enabled = false;
-        _rb.isKinematic = true;
-        //_rbNetwork.SetIsKinematic(true);
+        //_rb.isKinematic = true;
+        _rbNetwork.SetIsKinematic(true);
         isInteractable = false;
     }
 

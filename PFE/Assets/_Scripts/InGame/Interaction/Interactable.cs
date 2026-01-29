@@ -20,7 +20,7 @@ public class Interactable : NetworkBehaviour
 
     public virtual void Interact(PlayerInteraction interaction)
     {
-        print(gameObject.name + " interacted with !");
+        
     }
 
     public virtual void StartHover()

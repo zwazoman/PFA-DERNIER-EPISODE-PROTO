@@ -27,7 +27,6 @@ public class PlayerHands : MonoBehaviour
             }
         }
     }
-
     #region Inputs
 
     public void UseRight(InputAction.CallbackContext ctx)

@@ -4,6 +4,7 @@ using DG.Tweening;
 using Unity.Netcode;
 using UnityEngine;
 using Unity.VisualScripting;
+using Unity.Netcode.Components;
 
 public class Hand: NetworkBehaviour
 {
@@ -44,6 +45,7 @@ public class Hand: NetworkBehaviour
         if (heldItem == null)
             heldItem = item;
 
+        print("ask for ownership");
         TryChangeOwnershipRpc(NetworkManager.Singleton.LocalClientId, heldItem);
         await WaitForOwnership(NetworkManager.Singleton.LocalClientId, heldItem);
 
@@ -57,6 +59,9 @@ public class Hand: NetworkBehaviour
         await item.transform.DORotate(_holdingSocket.rotation.eulerAngles, _grabSpeed);
 
         _itemGrabbed = true;
+
+        print(OwnerClientId);
+        print(item.OwnerClientId);
     }
 
     public bool TryPickupItem(Item item)
@@ -110,22 +115,28 @@ public class Hand: NetworkBehaviour
     [Rpc(SendTo.Server)]
     void TryChangeOwnershipRpc(ulong clientID, NetworkBehaviourReference networkBhvRef)
     {
-        print(IsHost);
 
         if (networkBhvRef.TryGet(out NetworkBehaviour networkBhv))
         {
             if (networkBhv.OwnerClientId == clientID)
                 return;
             networkBhv.NetworkObject.ChangeOwnership(clientID);
+            print("Ownership granted");
         }
     }
 
     async UniTask WaitForOwnership(ulong clientID, Item item)
     {
+        print("wait for ownership");
+
+        float time = 0;
+
         while(item.OwnerClientId != clientID)
         {
+            time += Time.deltaTime;
             await UniTask.Yield();
         }
+        print(time);
     }
 
     //end
