@@ -60,6 +60,11 @@ public class PlayerInteraction : MonoBehaviour
         _main.playerHands.Equip(item);
     }
 
+    public void PickupTest(GameObject pickup)
+    {
+
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(_main.playerCamera.transform.position, _main.playerCamera.transform.position + _main.playerCamera.transform.forward.normalized * _interactionRange);
