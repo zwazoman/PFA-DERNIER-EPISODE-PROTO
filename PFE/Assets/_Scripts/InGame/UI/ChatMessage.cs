@@ -14,12 +14,24 @@ public class ChatMessage : MonoBehaviour
 
     public void SetupMessage(string senderName, string message, bool sent = true)
     {
-        _nameText.text = senderName;
-        _messageText.text = message;
-
         if (sent)
-            _nameText.color = _sentColor;
+            _nameText.color = Color.blue;
         else
-            _nameText.color = _receivedColor;
+            _nameText.color = Color.red;
+
+        _nameText.text = senderName + " :";
+        _messageText.text = message;
+    }
+}
+
+public struct Message
+{
+    public string senderName;
+    public string message;
+
+    public Message(string senderName, string message)
+    {
+        this.senderName = senderName;
+        this.message = message;
     }
 }

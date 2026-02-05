@@ -10,10 +10,9 @@ public class Item : Interactable
 
     [SerializeField] public ItemType type;
 
-    [SerializeField] Collider _coll;
-
-    [SerializeField] Rigidbody _rb;
-    [SerializeField] NetworkRigidbody _rbNetwork;
+    Collider _coll;
+    Rigidbody _rb;
+    NetworkRigidbody _rbNetwork;
 
     protected bool isUsing;
 
@@ -22,7 +21,6 @@ public class Item : Interactable
         base.Awake();
 
         TryGetComponent(out  _coll);
-
         TryGetComponent(out _rb);
         TryGetComponent(out _rbNetwork);
     }

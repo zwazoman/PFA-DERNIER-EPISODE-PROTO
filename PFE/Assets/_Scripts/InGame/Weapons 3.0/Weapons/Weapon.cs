@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Unity.Netcode;
 
 public class Weapon : Item
 {
@@ -23,8 +24,6 @@ public class Weapon : Item
         base.StartUsing();
 
         TryShoot();
-        ShootDelay();
-
     }
 
     public override void UseUpdate()
@@ -44,6 +43,7 @@ public class Weapon : Item
             _timer += Time.deltaTime;
             await UniTask.Yield();
         }
+        _timer = 0;
 
         canShoot = true;
         isWaiting = false;
@@ -54,13 +54,17 @@ public class Weapon : Item
         base.StopUsing();
     }
 
-    public virtual void TryShoot()
+    public virtual bool TryShoot()
     {
+        print("tryShoot");
         if (canShoot)
         {
-            print("shoot");
+            NetworkObject.InstantiateAndSpawn(_projectile, NetworkManager, 0, false, false, false, _shootSocket.position, _shootSocket.rotation);
+            canShoot = false;
+            ShootDelay();
+            return true;
         }
-        //spawn le projectile
+        return false;
     }
 
 }

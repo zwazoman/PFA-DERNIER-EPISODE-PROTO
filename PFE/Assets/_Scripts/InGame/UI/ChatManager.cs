@@ -19,7 +19,8 @@ public class ChatManager : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField] GameObject _newMessagePrefab;
-    [SerializeField] string _username = "George";
+    [SerializeField] string _clientUsername = "George";
+    [SerializeField] string _serverUsername = "Marco";
 
     [HideInInspector] public bool chatOpened = false;
 
@@ -37,36 +38,41 @@ public class ChatManager : MonoBehaviour
         if (_main.IsHost)
         {
             _serverBehaviour.Initialize();
-            _serverBehaviour.Username = _username;
             _serverBehaviour.OnMessageReceived += ReceiveNewMessage;
         }
         else
         {
             _clientBehavour.Initialize();
-            _clientBehavour.Username = _username;
             _clientBehavour.OnMessageReceived += ReceiveNewMessage;
         }
 
         _chatInputField.onSubmit.AddListener(SendNewMessage);
     }
 
-    void SendNewMessage(string message)
+    void SendNewMessage(string content)
     {
         print("submit input");
 
         _chatInputField.text = null;
-        CreateNewMessageObj(_username, message, true);
+        Message message;
 
         if (_main.IsHost)
+        {
+            message = new(_serverUsername, content);
+            CreateNewMessageObj(_serverUsername, content, true);
             _serverBehaviour.WriteNewMessage(message);
+        }
         else
+        {
+            message = new(_clientUsername, content);
+            CreateNewMessageObj(_clientUsername, content, true);
             _clientBehavour.WriteNewMessage(message);
-
+        }
     }
 
-    void ReceiveNewMessage(string senderName, string message)
+    void ReceiveNewMessage(Message message)
     {
-        CreateNewMessageObj(senderName, message, false);
+        CreateNewMessageObj(message.senderName, message.message, false);
     }
 
     void CreateNewMessageObj(string senderName, string message, bool sent = true)

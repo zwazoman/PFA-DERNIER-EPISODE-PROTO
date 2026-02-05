@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class ClientBehavour : MonoBehaviour
 {
-    public event Action<string, string> OnMessageReceived;
-    [HideInInspector] public string Username;
+    public event Action<Message> OnMessageReceived;
 
     bool _initialized = false;
 
@@ -51,8 +50,11 @@ public class ClientBehavour : MonoBehaviour
 
                 stream.ReadBytes(buffer);
 
-                string message = Encoding.UTF8.GetString(buffer.ToArray());
-                OnMessageReceived(Username, message);
+                string content = Encoding.UTF8.GetString(buffer.ToArray());
+
+                Message message = JsonUtility.FromJson<Message>(content);
+
+                OnMessageReceived(message);
             }
             else if (cmd == Unity.Networking.Transport.NetworkEvent.Type.Disconnect)
             {
@@ -62,8 +64,9 @@ public class ClientBehavour : MonoBehaviour
         }
     }
 
-    public void WriteNewMessage(string content)
+    public void WriteNewMessage(Message message)
     {
+        string content = JsonUtility.ToJson(message);
         //encode le content
         byte[] encodedString = Encoding.Default.GetBytes(content);
 

@@ -24,11 +24,6 @@ public class Hand: NetworkBehaviour
 
     bool _itemGrabbed;
 
-    private void Awake()
-    {
-        print(gameObject.name + " can hold " + itemSlots.Count + " items");
-    }
-
     private void Update()
     {
         if(heldItem != null && _itemGrabbed)

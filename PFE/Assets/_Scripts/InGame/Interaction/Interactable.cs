@@ -4,24 +4,21 @@ using UnityEngine;
 public class Interactable : NetworkBehaviour
 {
     [HideInInspector] public bool isInteractable = true;
-    [SerializeField] Material _hoveredMaterial;
 
-    MeshRenderer _mR;
-    Material _initialMaterial;
+    [SerializeField] MeshRenderer _mR;
+    [SerializeField] Material _initialMaterial;
+    [SerializeField] Material _hoveredMaterial;
 
     protected virtual void Awake()
     {
-        TryGetComponent(out _mR);
-        _initialMaterial = _mR.material;
+        if (_mR = GetComponent<MeshRenderer>())
+            _initialMaterial = _mR.material;
 
-        if(gameObject.layer != 6)
+        if (gameObject.layer != 6)
             gameObject.layer = 6;
     }
 
-    public virtual void Interact(PlayerInteraction interaction)
-    {
-        
-    }
+    public virtual void Interact(PlayerInteraction interaction) { }
 
     public virtual void StartHover()
     {
@@ -34,8 +31,8 @@ public class Interactable : NetworkBehaviour
     public virtual void StopHover()
     {
         //feedback
-
-        _mR.material = _initialMaterial;
+        if(_initialMaterial != null)
+            _mR.material = _initialMaterial;
     }
 
     //gérer feedback

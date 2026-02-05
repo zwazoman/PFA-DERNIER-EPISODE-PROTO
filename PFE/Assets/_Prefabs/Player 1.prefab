@@ -2013,7 +2013,8 @@ MonoBehaviour:
   _serverBehaviour: {fileID: 7059641620572386668}
   _clientBehavour: {fileID: 1694727372836970302}
   _newMessagePrefab: {fileID: 5018553887672220081, guid: 45b5c487d96549b489e0261f474eb199, type: 3}
-  _username: George
+  _clientUsername: George
+  _serverUsername: Marco
   chatOpened: 0
 --- !u!114 &1694727372836970302
 MonoBehaviour:
