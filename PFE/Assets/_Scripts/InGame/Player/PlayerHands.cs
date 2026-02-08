@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,7 @@ public class PlayerHands : MonoBehaviour
     public Hand leftHand;
     public Hand rightHand;
 
-    public Hand[] hands = { null, null };
+    [HideInInspector] public Hand[] hands = { null, null };
 
     private void Awake()
     {
@@ -16,10 +17,14 @@ public class PlayerHands : MonoBehaviour
 
     public void Equip(Item item)
     {
+        //desequip item actuel ? check la quantité et l'inventaire
         bool itemEquipped = false;
 
         foreach(Hand hand in hands)
         {
+            print(hand.gameObject.name);
+            print(item.gameObject.name);
+
             if(hand.type == item.type && !itemEquipped)
             {
                 if (hand.TryPickupItem(item))

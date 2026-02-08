@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fd38d939ea224b8fd08c25faf1868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _main: {fileID: 8531568215491640720}
+  main: {fileID: 8531568215491640720}
   _interactionWidth: 0.5
   _interactionRange: 3
   _interactionmask:
@@ -2028,7 +2028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c518f85ac05854fa817a6c1a40be7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: 
 --- !u!114 &7059641620572386668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2041,7 +2040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9566fcd9ccfb454d89e10a5494f0109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: 
 --- !u!1 &9076600056177025080
 GameObject:
   m_ObjectHideFlags: 0

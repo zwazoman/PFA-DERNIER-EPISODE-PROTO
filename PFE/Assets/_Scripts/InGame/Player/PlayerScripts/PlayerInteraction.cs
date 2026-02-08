@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] PlayerMain _main;
+    [SerializeField] public PlayerMain main;
 
     Interactable _currentInteractable;
 
@@ -19,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.SphereCast(_main.playerCamera.transform.position, _interactionWidth, /*main.playerCamera.transform.position + */_main.playerCamera.transform.forward, out hit, _interactionRange, _interactionmask))
+        if (Physics.SphereCast(main.playerCamera.transform.position, _interactionWidth, /*main.playerCamera.transform.position + */main.playerCamera.transform.forward, out hit, _interactionRange, _interactionmask))
         {
             if (hit.collider.gameObject.TryGetComponent(out Interactable interactable))
             {
@@ -28,11 +28,6 @@ public class PlayerInteraction : MonoBehaviour
 
                 _currentInteractable = interactable;
                 interactable.StartHover();
-            }
-            else
-            {
-                _currentInteractable.StopHover();
-                _currentInteractable = null;
             }
         }
         else
@@ -57,7 +52,12 @@ public class PlayerInteraction : MonoBehaviour
 
     public void EquipItem(Item item)
     {
-        _main.playerHands.Equip(item);
+        main.playerHands.Equip(item);
+    }
+
+    public void PickupItem()
+    {
+
     }
 
     public void PickupTest(GameObject pickup)
@@ -67,7 +67,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(_main.playerCamera.transform.position, _main.playerCamera.transform.position + _main.playerCamera.transform.forward.normalized * _interactionRange);
-        Gizmos.DrawWireSphere(_main.playerCamera.transform.position + _main.playerCamera.transform.forward.normalized * _interactionRange, _interactionWidth);
+        Gizmos.DrawLine(main.playerCamera.transform.position, main.playerCamera.transform.position + main.playerCamera.transform.forward.normalized * _interactionRange);
+        Gizmos.DrawWireSphere(main.playerCamera.transform.position + main.playerCamera.transform.forward.normalized * _interactionRange, _interactionWidth);
     }
 }

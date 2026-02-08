@@ -9,6 +9,13 @@ public class BaseProjectile : NetworkBehaviour
     bool _move;
     float _timer;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        //print("projectile spawned");
+    }
+
     private void Update()
     {
         if (!IsSpawned)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PeriodicSpawner : NetworkBehaviour
 {
-    [SerializeField] NetworkPoolTest _pool;
+    [SerializeField] NetworkPool _pool;
 
     [SerializeField] GameObject _connard;
 

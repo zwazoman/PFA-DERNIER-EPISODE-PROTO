@@ -2,7 +2,7 @@ using Unity.Netcode;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class NetworkPoolTest : NetworkBehaviour, INetworkPrefabInstanceHandler
+public class NetworkPool : NetworkBehaviour, INetworkPrefabInstanceHandler
 {
     [SerializeField] GameObject _prefab;
     [SerializeField] int _poolSize;
@@ -31,14 +31,10 @@ public class NetworkPoolTest : NetworkBehaviour, INetworkPrefabInstanceHandler
         }
     }
 
-    public void ReturnToPool()
-    {
-
-    }
-
     public void Destroy(NetworkObject networkObject)
     {
         print("destroy via pool");
+        //networkObject.Despawn();
         networkObject.gameObject.SetActive(false);
         networkObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
 
@@ -54,6 +50,7 @@ public class NetworkPoolTest : NetworkBehaviour, INetworkPrefabInstanceHandler
         newObject.SetActive(true);
 
         NetworkObject networkBhv = newObject.GetComponent<NetworkObject>();
+        //networkBhv.Spawn();
         return networkBhv;
     }
 }

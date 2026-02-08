@@ -1,29 +1,16 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using JetBrains.Annotations;
+using Unity.Netcode;
 using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Item : Interactable
+public class Item : NetworkBehaviour
 {
-
     [SerializeField] public ItemType type;
 
-    Collider _coll;
-    Rigidbody _rb;
-    NetworkRigidbody _rbNetwork;
-
     protected bool isUsing;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        TryGetComponent(out  _coll);
-        TryGetComponent(out _rb);
-        TryGetComponent(out _rbNetwork);
-    }
 
     public virtual void StartUsing()
     {
@@ -44,31 +31,29 @@ public class Item : Interactable
 
     public virtual void Break() { }
 
-    public void OnDrop()
+    public virtual void OnDrop()
     {
         print(gameObject.name + "Dropped !");
 
-        _coll.enabled = true;
-        _rb.isKinematic = false;
-        //_rbNetwork.SetIsKinematic(false);
-        isInteractable = true;
+        //_coll.enabled = true;
+        //_rb.isKinematic = false;
+        ////_rbNetwork.SetIsKinematic(false);
+        //isInteractable = true;
     }
 
-    public void OnPickup()
+    public virtual void OnPickup()
     {
         print(gameObject.name + "Picked up !");
 
-        _coll.enabled = false;
-        //_rb.isKinematic = true;
-        _rbNetwork.SetIsKinematic(true);
-        isInteractable = false;
+        //_coll.enabled = false;
+        ////_rb.isKinematic = true;
+        //_rbNetwork.SetIsKinematic(true);
+        //isInteractable = false;
     }
 
-    public override void Interact(PlayerInteraction interaction)
+    public virtual void OnEquip()
     {
-        base.Interact(interaction);
 
-        interaction.EquipItem(this);
     }
 
     async void Use()

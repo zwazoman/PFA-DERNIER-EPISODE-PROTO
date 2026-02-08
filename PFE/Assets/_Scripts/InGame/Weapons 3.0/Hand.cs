@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 using DG.Tweening;
+using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine;
-using Unity.VisualScripting;
 using Unity.Netcode.Components;
+using Unity.VisualScripting;
+using UnityEngine;
+using static UnityEditor.Progress;
+using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class Hand: NetworkBehaviour
 {
@@ -17,19 +19,15 @@ public class Hand: NetworkBehaviour
     [SerializeField] public ItemType type;
 
     [SerializeField] int _inventorySize = 1;
-    [SerializeField] float _grabSpeed = .5f;
 
     [HideInInspector] public Item heldItem;
     [HideInInspector] public List<Item> itemSlots = new();
 
-    bool _itemGrabbed;
-
     private void Update()
     {
-        if(heldItem != null && _itemGrabbed)
+        if(heldItem != null)
         {
-            heldItem.transform.position = _holdingSocket.transform.position;
-            heldItem.transform.rotation = _holdingSocket.transform.rotation;
+            heldItem.transform.SetPositionAndRotation(_holdingSocket.position, _holdingSocket.rotation);
         }
     }
 
@@ -40,23 +38,16 @@ public class Hand: NetworkBehaviour
         if (heldItem == null)
             heldItem = item;
 
+        print(heldItem.NetworkObject);
+        print(heldItem.IsSpawned);
+
         print("ask for ownership");
-        TryChangeOwnershipRpc(NetworkManager.Singleton.LocalClientId, heldItem);
+        TryChangeOwnershipRpc(NetworkManager.Singleton.LocalClientId, heldItem.NetworkObject);
         await WaitForOwnership(NetworkManager.Singleton.LocalClientId, heldItem);
 
         item.OnPickup();
 
         item.transform.parent = _main.transform;
-
-        _itemGrabbed = false;
-
-        item.transform.DOMove(_holdingSocket.position, _grabSpeed);
-        await item.transform.DORotate(_holdingSocket.rotation.eulerAngles, _grabSpeed);
-
-        _itemGrabbed = true;
-
-        print(OwnerClientId);
-        print(item.OwnerClientId);
     }
 
     public bool TryPickupItem(Item item)
@@ -97,7 +88,6 @@ public class Hand: NetworkBehaviour
         itemSlots.Remove(heldItem);
 
         heldItem.transform.parent = null;
-        _itemGrabbed = false;
 
         heldItem.OnDrop();
 
@@ -108,14 +98,14 @@ public class Hand: NetworkBehaviour
     //todo : extension networkObj
 
     [Rpc(SendTo.Server)]
-    void TryChangeOwnershipRpc(ulong clientID, NetworkBehaviourReference networkBhvRef)
+    void TryChangeOwnershipRpc(ulong clientID, NetworkObjectReference networkObjRef)
     {
 
-        if (networkBhvRef.TryGet(out NetworkBehaviour networkBhv))
+        if (networkObjRef.TryGet(out NetworkObject networkObj))
         {
-            if (networkBhv.OwnerClientId == clientID)
+            if (networkObj.OwnerClientId == clientID)
                 return;
-            networkBhv.NetworkObject.ChangeOwnership(clientID);
+            networkObj.ChangeOwnership(clientID);
             print("Ownership granted");
         }
     }

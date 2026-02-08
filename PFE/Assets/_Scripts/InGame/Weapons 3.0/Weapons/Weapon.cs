@@ -56,10 +56,9 @@ public class Weapon : Item
 
     public virtual bool TryShoot()
     {
-        print("tryShoot");
         if (canShoot)
         {
-            NetworkObject.InstantiateAndSpawn(_projectile, NetworkManager, 0, false, false, false, _shootSocket.position, _shootSocket.rotation);
+            ShootRpc();
             canShoot = false;
             ShootDelay();
             return true;
@@ -67,4 +66,9 @@ public class Weapon : Item
         return false;
     }
 
+    [Rpc(SendTo.Server)]
+    void ShootRpc()
+    {
+        NetworkObject.InstantiateAndSpawn(_projectile, NetworkManager, 0, true, true, false, _shootSocket.position, _shootSocket.rotation);
+    }
 }
