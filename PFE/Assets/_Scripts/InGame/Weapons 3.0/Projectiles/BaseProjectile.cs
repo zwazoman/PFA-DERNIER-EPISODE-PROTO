@@ -13,12 +13,12 @@ public class BaseProjectile : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
-        //print("projectile spawned");
+
     }
 
     private void Update()
     {
-        if (!IsSpawned)
+        if (!IsSpawned || !IsServer)
             return;
 
         transform.Translate(transform.forward * _speed * Time.deltaTime,Space.World);
@@ -31,4 +31,10 @@ public class BaseProjectile : NetworkBehaviour
             _timer = 0;
         }
     }
+
+    //[Rpc(SendTo.Server)]
+    //void DespawnRpc()
+    //{
+    //    NetworkObject.Despawn();
+    //}
 }
