@@ -96,7 +96,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3590173197890805395}
   - component: {fileID: 2052550521245445566}
-  - component: {fileID: 2095220241400722676}
   - component: {fileID: 6469815767120328389}
   m_Layer: 6
   m_Name: Weapon Test
@@ -147,24 +146,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 1
---- !u!114 &2095220241400722676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6536719999988608940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97cfbd0d82ea889499f3948337ff19f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  type: 0
-  _shootSocket: {fileID: 8682608326241274858}
-  _projectile: {fileID: 5604889624952730010, guid: 46a4c616ba28e7141bf4a2fc99c67c09, type: 3}
-  tmpDelay: 0.5
-  rateOfFire: 0
 --- !u!114 &6469815767120328389
 MonoBehaviour:
   m_ObjectHideFlags: 0

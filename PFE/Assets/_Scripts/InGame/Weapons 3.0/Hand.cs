@@ -8,11 +8,11 @@ using UnityEngine;
 using static UnityEditor.Progress;
 using static UnityEditor.Timeline.Actions.MenuPriority;
 
-public class Hand: NetworkBehaviour
+public class Hand: MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PlayerMain _main;
-    [SerializeField] Transform _holdingSocket;
+    [SerializeField] ItemVisuals _itemVisuals;
 
     [Header("Parameters")]
 
@@ -20,37 +20,38 @@ public class Hand: NetworkBehaviour
 
     [SerializeField] int _inventorySize = 1;
 
-    [HideInInspector] public Item heldItem;
-    [HideInInspector] public List<Item> itemSlots = new();
+    [HideInInspector] public ItemScriptable heldItem;
+    [HideInInspector] public List<ItemScriptable> itemSlots = new();
 
     private void Update()
     {
-        if(heldItem != null)
-        {
-            heldItem.transform.SetPositionAndRotation(_holdingSocket.position, _holdingSocket.rotation);
-        }
+        //if(heldItem != null)
+        //{
+        //    heldItem.transform.SetPositionAndRotation(_holdingSocket.position, _holdingSocket.rotation);
+        //}
     }
 
-    public async void PickupItem(Item item)
+    public void PickupItem(ItemScriptable item)
     {
         itemSlots.Add(item);
 
         if (heldItem == null)
             heldItem = item;
 
-        print(heldItem.NetworkObject);
-        print(heldItem.IsSpawned);
+        item.OnPickup(ref _main);
+        EquipItem(item);
 
-        print("ask for ownership");
-        TryChangeOwnershipRpc(NetworkManager.Singleton.LocalClientId, heldItem.NetworkObject);
-        await WaitForOwnership(NetworkManager.Singleton.LocalClientId, heldItem);
+        //print(heldItem.NetworkObject);
+        //print(heldItem.IsSpawned);
 
-        item.OnPickup();
+        //print("ask for ownership");
+        //TryChangeOwnershipRpc(NetworkManager.Singleton.LocalClientId, heldItem.NetworkObject);
+        //await WaitForOwnership(NetworkManager.Singleton.LocalClientId, heldItem);
 
-        item.transform.parent = _main.transform;
+        //item.transform.parent = _main.transform;
     }
 
-    public bool TryPickupItem(Item item)
+    public bool TryPickupItem(ItemScriptable item)
     {
         if(itemSlots.Count < _inventorySize)
         {
@@ -61,13 +62,14 @@ public class Hand: NetworkBehaviour
         return false;
     }
 
-    void EquipItem(Item item)
+    void EquipItem(ItemScriptable item)
     {
-        heldItem.gameObject.SetActive(false); //marche pas en réseau
+        //animation
 
         heldItem = item;
 
-        heldItem.gameObject.SetActive(true); //non plus
+        _itemVisuals.ShowItemRpc(item.mesh);
+        heldItem.OnEquip();
     }
 
     public void SwitchToPreviousHeldItem()
@@ -82,17 +84,17 @@ public class Hand: NetworkBehaviour
 
     public void DropItem()
     {
-        if (heldItem == null)
-            return;
+        //if (heldItem == null)
+        //    return;
 
-        itemSlots.Remove(heldItem);
+        //itemSlots.Remove(heldItem);
 
-        heldItem.transform.parent = null;
+        //heldItem.transform.parent = null;
 
-        heldItem.OnDrop();
+        //heldItem.OnDrop();
 
-        heldItem.NetworkObject.ChangeOwnership(0);
-        heldItem = null;
+        //heldItem.NetworkObject.ChangeOwnership(0);
+        //heldItem = null;
     }
 
     //todo : extension networkObj

@@ -601,7 +601,7 @@ MonoBehaviour:
   _mR: {fileID: 785667058}
   _initialMaterial: {fileID: 0}
   _hoveredMaterial: {fileID: 2100000, guid: d14dee7d3f164f745ae70d52128bcc34, type: 2}
-  _itemPrefab: {fileID: 6536719999988608940, guid: 17b0f38cb9aa6244f9f303be3b3cab51, type: 3}
+  _item: {fileID: 0}
 --- !u!114 &785667056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   _mR: {fileID: 6061614827604367176}
   _initialMaterial: {fileID: 0}
   _hoveredMaterial: {fileID: 2100000, guid: d14dee7d3f164f745ae70d52128bcc34, type: 2}
-  _itemPrefab: {fileID: 6905538225281894630, guid: 92568edd0bf54554db54f6cf83552165, type: 3}
+  _item: {fileID: 11400000, guid: 76d031d8a07403c478bf2c7f153fc79c, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -50,21 +50,6 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void EquipItem(Item item)
-    {
-        main.playerHands.Equip(item);
-    }
-
-    public void PickupItem()
-    {
-
-    }
-
-    public void PickupTest(GameObject pickup)
-    {
-
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(main.playerCamera.transform.position, main.playerCamera.transform.position + main.playerCamera.transform.forward.normalized * _interactionRange);

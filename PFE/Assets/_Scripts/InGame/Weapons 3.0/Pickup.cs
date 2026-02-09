@@ -4,10 +4,10 @@ using static UnityEditor.Progress;
 
 public class Pickup : Interactable
 {
-    [SerializeField] GameObject _itemPrefab;
+    [SerializeField] ItemScriptable _item;
 
     PlayerInteraction _currentPlayerInteraction;
-    Item _currentItem = null;
+    //Item _currentItem = null;
 
     public async override void Interact(PlayerInteraction interaction)
     {
@@ -15,37 +15,49 @@ public class Pickup : Interactable
 
         _currentPlayerInteraction = interaction;
 
-        SpawnNewItemRPC();
+        if (interaction.main.playerHands.TryEquipItem(_item))
+            DespawnRpc();
+        else
+            print("couldn't equip item");
 
-        while (_currentItem == null)
-        {
-            await Awaitable.NextFrameAsync();
-        }
 
-        _currentPlayerInteraction.main.playerHands.Equip(_currentItem);
+        //SpawnNewItemRPC();
+
+        //while (_currentItem == null)
+        //{
+        //    await Awaitable.NextFrameAsync();
+        //}
+
+        //_currentPlayerInteraction.main.playerHands.Equip(_currentItem);
     }
 
     [Rpc(SendTo.Server)]
-    void SpawnNewItemRPC(RpcParams rpcParams = default)
+    void DespawnRpc()
     {
-        NetworkObject itemNetwork = NetworkObject.InstantiateAndSpawn(_itemPrefab, NetworkManager, rpcParams.Receive.SenderClientId, true, true, false, transform.position, transform.rotation);
-
-        ReceiveItemRPC(itemNetwork.GetNetworkBehaviourAtOrderIndex(0), RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
-
         NetworkObject.Despawn();
     }
 
-    [Rpc(SendTo.SpecifiedInParams)]
-    void ReceiveItemRPC(NetworkBehaviourReference itemNetworkRef, RpcParams rpcParams)
-    {
-        print(rpcParams.Receive.SenderClientId);
-        print(itemNetworkRef.TryGet(out Weapon weapon));
+    //[Rpc(SendTo.Server)]
+    //void SpawnNewItemRPC(RpcParams rpcParams = default)
+    //{
+    //    NetworkObject itemNetwork = NetworkObject.InstantiateAndSpawn(_itemPrefab, NetworkManager, rpcParams.Receive.SenderClientId, true, true, false, transform.position, transform.rotation);
 
-        if(itemNetworkRef.TryGet(out Item item))
-            print(item.gameObject.name);
+    //    ReceiveItemRPC(itemNetwork.GetNetworkBehaviourAtOrderIndex(0), RpcTarget.Single(rpcParams.Receive.SenderClientId, RpcTargetUse.Temp));
 
-        //_currentPlayerInteraction.main.playerHands.Equip(item);
-        _currentItem = item;
-    }
+    //    NetworkObject.Despawn();
+    //}
+
+    //[Rpc(SendTo.SpecifiedInParams)]
+    //void ReceiveItemRPC(NetworkBehaviourReference itemNetworkRef, RpcParams rpcParams)
+    //{
+    //    print(rpcParams.Receive.SenderClientId);
+    //    print(itemNetworkRef.TryGet(out Weapon weapon));
+
+    //    if(itemNetworkRef.TryGet(out Item item))
+    //        print(item.gameObject.name);
+
+    //    //_currentPlayerInteraction.main.playerHands.Equip(item);
+    //    _currentItem = item;
+    //}
 
 }

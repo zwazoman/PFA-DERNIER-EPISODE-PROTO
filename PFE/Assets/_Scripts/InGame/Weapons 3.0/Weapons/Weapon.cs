@@ -2,10 +2,11 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Unity.Netcode;
 
-public class Weapon : Item
+[CreateAssetMenu(fileName = "newItem", menuName = "Item/Weapon")]
+public class Weapon : ItemScriptable
 {
     [Header("References")]
-    [SerializeField] Transform _shootSocket;
+    [SerializeField] public Transform _shootSocket;
 
     [Header("Weapon Parameters")]
     [SerializeField] GameObject _projectile;
@@ -69,6 +70,9 @@ public class Weapon : Item
     [Rpc(SendTo.Server)]
     void ShootRpc()
     {
-        NetworkObject.InstantiateAndSpawn(_projectile, NetworkManager, 0, true, true, false, _shootSocket.position, _shootSocket.rotation);
+        if(_shootSocket != null)
+            NetworkObject.InstantiateAndSpawn(_projectile, main.NetworkManager, 0, true, true, false, _shootSocket.position, _shootSocket.rotation);
+        else
+            NetworkObject.InstantiateAndSpawn(_projectile, main.NetworkManager, 0, true, true, false, main.transform.position, main.transform.rotation);
     }
 }

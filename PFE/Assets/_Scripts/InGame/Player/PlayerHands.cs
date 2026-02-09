@@ -15,7 +15,7 @@ public class PlayerHands : MonoBehaviour
         hands[1] = rightHand;
     }
 
-    public void Equip(Item item)
+    public bool TryEquipItem(ItemScriptable item)
     {
         //desequip item actuel ? check la quantité et l'inventaire
         bool itemEquipped = false;
@@ -23,14 +23,15 @@ public class PlayerHands : MonoBehaviour
         foreach(Hand hand in hands)
         {
             print(hand.gameObject.name);
-            print(item.gameObject.name);
+            print(item.name);
 
             if(hand.type == item.type && !itemEquipped)
             {
                 if (hand.TryPickupItem(item))
-                    return;
+                    return true;
             }
         }
+        return false;
     }
     #region Inputs
 
